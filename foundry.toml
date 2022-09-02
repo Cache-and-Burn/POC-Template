@@ -1,19 +1,30 @@
-# Foundry Configuration File
-# Default definitions: https://github.com/gakonst/foundry/blob/b7917fa8491aedda4dd6db53fbb206ea233cd531/config/src/lib.rs#L782
-# See more config options at: https://github.com/gakonst/foundry/tree/master/config
+[fmt]
+quote_style = 'single'
+line_length = 120
 
-# The Default Profile
 [profile.default]
-solc_version = '0.8.15'
-auto_detect_solc = false
-optimizer = true
-optimizer_runs = 1_000
-fuzz_runs = 1_000
+solc = '0.8.14'
+src = 'solidity'
+test = 'solidity/test'
+out = 'out'
+libs = ['lib']
+fuzz_runs = 1000
+optimizer_runs = 10_000
+rpc_endpoints = { mainnet = "https://rpc.ankr.com/eth", optimism = "https://rpc.ankr.com/optimism" , fantom = "https://rpc.ankr.com/fantom", arbitrum = "https://rpc.ankr.com/arbitrum" , bsc = "https://divine-black-wind.bsc.discover.quiknode.pro/64ab050694137dfcbf4c20daec2e94dc515c1d60/" }
 remappings = [
-  "forge-std=lib/forge-std/src/",
-  "solmate=lib/solmate/src/",
+  'forge-std/=lib/forge-std/src/',
+  'solmate=lib/solmate/src',
 ]
 
-# Extreme Fuzzing CI Profile :P
-[profile.ci]
-fuzz_runs = 100_000
+[profile.optimized]
+via_ir = true
+out = 'out-via-ir'
+fuzz_runs = 5000
+
+[profile.test]
+via_ir = true
+out = 'out-via-ir'
+fuzz_runs = 5000
+src = 'solidity/test'
+
+
