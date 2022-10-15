@@ -8,7 +8,6 @@ src = 'solidity'
 test = 'solidity/test'
 out = 'out'
 libs = ['lib']
-fuzz_runs = 1000
 optimizer_runs = 10_000
 rpc_endpoints = { mainnet = "https://rpc.ankr.com/eth", optimism = "https://rpc.ankr.com/optimism" , fantom = "https://rpc.ankr.com/fantom", arbitrum = "https://rpc.ankr.com/arbitrum" , bsc = "https://divine-black-wind.bsc.discover.quiknode.pro/64ab050694137dfcbf4c20daec2e94dc515c1d60/" }
 remappings = [
@@ -16,15 +15,20 @@ remappings = [
   'solmate=lib/solmate/src',
 ]
 
-[profile.optimized]
-via_ir = true
-out = 'out-via-ir'
-fuzz_runs = 5000
+[fuzz]
+runs = 256
+max_test_rejects = 65536
+seed = '0x3e8'
+dictionary_weight = 40
+include_storage = true
+include_push_bytes = true
 
-[profile.test]
-via_ir = true
-out = 'out-via-ir'
-fuzz_runs = 5000
-src = 'solidity/test'
-
+[invariant]
+runs = 256
+depth = 15
+fail_on_revert = false
+call_override = false
+dictionary_weight = 80
+include_storage = true
+include_push_bytes = true
 
