@@ -1,0 +1,12 @@
+tasks:
+  - command: >
+    curl -L https://foundry.paradigm.xyz | bash
+    gp sync-done foundry
+    
+  - command: | 
+    gp sync-await foundry 
+    foundryup
+    pip install slither-analyzer
+    pip install solc-select
+    
+  
